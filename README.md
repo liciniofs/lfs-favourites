@@ -9,11 +9,11 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Add favourite posts and pages in WordPress.
 
-# == Description ==
+== Description ==
 
 Plugin developed using log.pt plugin boilerplate.
 
-# == Installation ==
+== Installation ==
 
 This section describes how to install the plugin and get it working.
 
@@ -24,29 +24,7 @@ e.g.
 3. Place `[add_favourite]` shortcode in your pages or posts
 2. Activate Widget in 'Widgets' options page
 
-# == Frequently Asked Questions ==
-
-= A question that someone might have =
-
-An answer to that question.
-
-# == Changelog ==
+== Changelog ==
 
 = 1.0 =
 * Initial release
-
-
-Here's a link to [WordPress](http://wordpress.org/ "Your favorite software") and one to [Markdown's Syntax Documentation][markdown syntax].
-Titles are optional, naturally.
-
-[markdown syntax]: http://daringfireball.net/projects/markdown/syntax
-            "Markdown is what the parser uses to process much of the readme file"
-
-Markdown uses email style notation for blockquotes and I've been told:
-> Asterisks for *emphasis*. Double it up  for **strong**.
-
-`<?php code(); // goes in backticks ?>`
-
-
-* For more information, see the following discussion:
-* https://github.com/tommcfarlin/WordPress-Plugin-Boilerplate/pull/123#issuecomment-28541913
