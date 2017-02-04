@@ -26,7 +26,7 @@ class Deactivator {
 	/**
 	 * Deletes the plugin table and option.
 	 *
-	 * Deletes the plugin table and plugin version from the db
+	 * Deletes the plugin table and plugin version from the db. Added for demo purpose
 	 *
 	 * @since    1.0.0
 	 */
@@ -36,7 +36,7 @@ class Deactivator {
 		$table_name = $wpdb->prefix . 'lfs_favourites';
 		if ($table_name) {
 	    // $wpdb->query( "DROP TABLE IF EXISTS $table_name" );
-	    delete_option("lfs_favourites_db_version");
+	    // delete_option("lfs_favourites_db_version");
 		}
 	}
 }

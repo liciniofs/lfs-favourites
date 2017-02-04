@@ -13,16 +13,33 @@
  */
 
 class lfs_add_favourite {
+
+    /**
+    * Build the class.
+    *
+    * Add shortcode and widget
+    *
+    * @since      1.0.0
+    * @package    Licinio Sousa
+    * @author     Licinio Sousa <licinio@ocubo.org>
+    */
     public function __construct() {
         add_shortcode('add_favourite', array($this, 'shortcode'));
         add_filter('widget_text', 'do_shortcode');
 
         add_action( 'wp_enqueue_scripts', array($this, 'scripts_and_styles'));
         add_action( 'wp_footer', array($this, 'add_js_variables') );
-
-        // add_action( 'wp_ajax_ajax_form', array($this, 'ajax_form')  ); //admin side
-        // add_action( 'wp_ajax_nopriv_ajax_form', array($this, 'ajax_form') ); //for frontend
     }
+
+    /**
+     * Adds scripts and styles.
+     *
+     * Custom styles and scripts.
+     *
+     * @since      1.0.0
+     * @package    Licinio Sousa
+     * @author     Licinio Sousa <licinio@ocubo.org>
+     */
 
     public function scripts_and_styles() {
         global $plugin_dir_path;
@@ -31,6 +48,16 @@ class lfs_add_favourite {
 
         wp_enqueue_script( 'favourites_app', $plugin_dir_path . 'assets/scripts/app.js', array( 'jquery' ), '1.0.0', true );
     }
+
+    /**
+    * Display shortcode.
+    *
+    * Markup to be displpayed.
+    *
+    * @since      1.0.0
+    * @package    Licinio Sousa
+    * @author     Licinio Sousa <licinio@ocubo.org>
+    */
 
     public function shortcode() {
         global  $post,
@@ -50,6 +77,16 @@ class lfs_add_favourite {
         };
     }
 
+    /**
+    * See if post is favourited.
+    *
+    * HChecks the database to see if current posts is favourited
+    *
+    * @since      1.0.0
+    * @package    Licinio Sousa
+    * @author     Licinio Sousa <licinio@ocubo.org>
+    */
+
     public function is_it_faved($post_id, $user_id) {
       global $wpdb;
       $table_name = $wpdb->prefix . 'lfs_favourites';
@@ -62,6 +99,16 @@ class lfs_add_favourite {
         return true;
       }
     }
+
+    /**
+    * Adds javascript variables.
+    *
+    * Adds necessary javascript variables..
+    *
+    * @since      1.0.0
+    * @package    Licinio Sousa
+    * @author     Licinio Sousa <licinio@ocubo.org>
+    */
 
     function add_js_variables() {
         $user_id = get_current_user_id();

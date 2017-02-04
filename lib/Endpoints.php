@@ -13,13 +13,30 @@
  */
 
 class lfs_Endpoints {
-    public function __construct() {
-      add_action( 'wp_ajax_ajax_form', array($this, 'ajax_form')  ); //admin side
-      add_action( 'wp_ajax_nopriv_ajax_form', array($this, 'ajax_form') ); //for frontend
 
-      // add_action( 'wp_ajax_ajax_get', array($this, 'ajax_get')  ); //admin side
-      // add_action( 'wp_ajax_nopriv_ajax_get', array($this, 'ajax_get') ); //for frontend
+  /**
+   * Triggers actions
+   *
+   * Makes method available for ajax requests.
+   *
+   * @since      1.0.0
+   * @package    Licinio Sousa
+   * @author     Licinio Sousa <licinio@ocubo.org>
+   */
+    public function __construct() {
+      add_action( 'wp_ajax_ajax_form', array($this, 'ajax_form')  );
+      add_action( 'wp_ajax_nopriv_ajax_form', array($this, 'ajax_form') );
     }
+
+    /**
+     * Inserts data.
+     *
+     * Inserts data to plugin database.
+     *
+     * @since      1.0.0
+     * @package    Licinio Sousa
+     * @author     Licinio Sousa <licinio@ocubo.org>
+     */
 
     function ajax_form(){
           global $wpdb;
@@ -33,21 +50,6 @@ class lfs_Endpoints {
               'post_id' => $_POST[ 'post_id' ]
           ));
     }
-    //
-    // function ajax_get(){
-    //       global $wpdb;
-    //
-    //       // $query = new WP_Query( array( 'p' => $_POST[ 'post_id' ] ) );
-    //
-    //       // $wpdb->insert('wp_lfs_favourites', array(
-    //       //     'time'  => $date,
-    //       //     'user_id' => $_POST[ 'user_id' ],
-    //       //     'post_id' => $_POST[ 'post_id' ]
-    //       // ));
-    //       return $_POST[ 'post_id' ] ;
-    // }
 }
 
 $lfs_Endpoints = new lfs_Endpoints();
-// add_action( 'wp_ajax_ajax_form', ('ajax_form')  ); //admin side
-// add_action( 'wp_ajax_nopriv_ajax_form', ('ajax_form') ); //for frontend

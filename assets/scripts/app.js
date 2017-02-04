@@ -3,7 +3,6 @@ LFS = '' || {};
 (function($){
   LFS.favourites = {
     init: function(){
-      // console.log(currentUser);
       LFS.favourites.ajaxUpdate.init();
       LFS.favourites.convertSvgToInline.init();
     },
@@ -12,32 +11,21 @@ LFS = '' || {};
         this.build();
       },
       build: function(){
-
         if ($('.add-favourite--btn').length) {
-
           $('.add-favourite--btn').each( function(){
-
             var _this = $(this),
                 currentPost = _this.closest('.add-favourite').data('post'),
                 target = '.lfs-favourites-widget-response';
-
             _this.on('click', function(event){
-
               if (_this.hasClass('active')) {
                 return false;
               }
-
               $(this).addClass('active');
-
               LFS.favourites.ajaxUpdate.post(currentPost, currentUser);
-
               if ($(target).length) {
                 LFS.favourites.ajaxUpdate.update(currentPost, target);
-
               }
-
             });
-
           });
         }
       },
