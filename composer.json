@@ -1,0 +1,43 @@
+{
+  "name": "licinio-sousa/lfs-favourites",
+  "description": "Just another favourites plugin",
+  "type": "wordpress-plugin",
+  "keywords": ["wordpress", "plugin"],
+  "homepage": "http://www.newli.pt",
+  "license": "GPL-2.0+",
+  "authors": [
+    {
+      "name": "Licínio Sousa",
+      "email": "licinio@newli.pt",
+      "homepage": "http://newli.pt/"
+    }
+  ],
+  "support": {
+    "issues": "http://www.newli.pt",
+    "source": "http://www.newli.pt"
+  },
+  "autoload": {
+    "psr-4": {
+      "LicinioSousa\\WP\\Plugin\\LfsFavourites\\": "lib/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "LicinioSousa\\WP\\Plugin\\Tests\\LfsFavourites\\": "tests/"
+    }
+  },
+  "require": {
+    "composer/installers": "~1.0",
+    "php": ">=5.5.9"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "*@stable",
+    "10up/wp_mock": "dev-master"
+  },
+  "suggest": {
+
+  },
+  "config": {
+    "sort-packages": true
+  }
+}

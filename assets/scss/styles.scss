@@ -1,0 +1,45 @@
+.add-favourite{
+  border-bottom: 1px solid #efefef;
+  border-top: 1px solid #efefef;
+  display: flex;
+  flex-direction: row-reverse;
+  margin-bottom: 25px;
+  position: relative;
+}
+
+.add-favourite--btn{
+  align-content: center;
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  padding: 15px;
+  span{
+    display: inline-block;
+    margin-right: 10px;
+  }
+  img{
+    display: none;
+  }
+  svg{
+    max-width: 45px;
+    max-height: 25px;
+    path{
+      fill: #efefef;
+      transition: fill 0.5s linear;
+    }
+    &:hover{
+      path{
+        fill:#f00;
+      }
+    }
+  }
+  &.active{
+    svg{
+      path{
+        fill: #f00;
+        transition: fill 0.5s linear;
+      }
+    }
+  }
+}

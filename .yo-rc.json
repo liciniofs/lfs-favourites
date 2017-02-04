@@ -1,0 +1,16 @@
+{
+  "generator-log-wp-plugin": {
+    "plugin_name": "lfs-favourites",
+    "vendor_name": "Licinio Sousa",
+    "plugin_url": "",
+    "project_url": "",
+    "plugin_description": "Just another favourites plugin",
+    "text_domain": "lfs-favourites",
+    "namespace": "LicinioSousa\\WP\\Plugin\\LfsFavourites",
+    "tests_namespace": "LicinioSousa\\WP\\Plugin\\Tests\\LfsFavourites",
+    "name_composer": "licinio-sousa/lfs-favourites",
+    "version": "1.0.0",
+    "git_issues": "/issues",
+    "git_source": ""
+  }
+}
