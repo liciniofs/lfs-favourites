@@ -17,12 +17,18 @@ Plugin developed using log.pt plugin boilerplate.
 
 This section describes how to install the plugin and get it working.
 
-e.g.
-
 1. Upload `lfs-favourites` to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Place `[add_favourite]` shortcode in your pages or posts
 2. Activate Widget in 'Widgets' options page
+
+== Edit ==
+
+This section describes how to setup the plugin for development.
+
+1. Run composer install
+2. Run npm install
+3. Run gulp
 
 == Changelog ==
 
