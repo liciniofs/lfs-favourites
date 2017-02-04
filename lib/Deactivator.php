@@ -35,7 +35,7 @@ class Deactivator {
     global $wpdb;
 		$table_name = $wpdb->prefix . 'lfs_favourites';
 		if ($table_name) {
-	    $wpdb->query( "DROP TABLE IF EXISTS $table_name" );
+	    // $wpdb->query( "DROP TABLE IF EXISTS $table_name" );
 	    delete_option("lfs_favourites_db_version");
 		}
 	}
