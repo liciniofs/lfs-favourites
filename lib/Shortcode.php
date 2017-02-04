@@ -24,8 +24,13 @@ class lfs_add_favourite {
     * @author     Licinio Sousa <licinio@ocubo.org>
     */
     public function __construct() {
-        add_shortcode('add_favourite', array($this, 'shortcode'));
+        add_shortcode('add_favourite', array($this, 'add_to_fav_shortcode'));
         add_filter('widget_text', 'do_shortcode');
+
+        add_shortcode('list_favourites', array($this, 'list_favourites_shortcode'));
+        add_filter('widget_text', 'do_shortcode');
+
+
 
         add_action( 'wp_enqueue_scripts', array($this, 'scripts_and_styles'));
         add_action( 'wp_footer', array($this, 'add_js_variables') );
@@ -50,34 +55,6 @@ class lfs_add_favourite {
     }
 
     /**
-    * Display shortcode.
-    *
-    * Markup to be displpayed.
-    *
-    * @since      1.0.0
-    * @package    Licinio Sousa
-    * @author     Licinio Sousa <licinio@ocubo.org>
-    */
-
-    public function shortcode() {
-        global  $post,
-                $plugin_dir_path;
-        $user_id = get_current_user_id();
-
-        $active = $this->is_it_faved($post->ID, $user_id);
-
-        $status = ($active == true ? 'active' : 'inactive');
-
-        if (is_user_logged_in()) {
-          return "<div class='add-favourite' data-post='$post->ID'>
-            <div class='add-favourite--btn $status'><span>" . __('Adicionar aos favoritos:') . "
-              </span><img class='svg' src='" . $plugin_dir_path . "assets/images/heart.svg' />
-            </div>
-          </div>";
-        };
-    }
-
-    /**
     * See if post is favourited.
     *
     * HChecks the database to see if current posts is favourited
@@ -98,6 +75,81 @@ class lfs_add_favourite {
       if ($post_count > 0) {
         return true;
       }
+    }
+
+    /**
+    * Display add_to_fav_shortcode.
+    *
+    * Markup to be displpayed.
+    *
+    * @since      1.0.0
+    * @package    Licinio Sousa
+    * @author     Licinio Sousa <licinio@ocubo.org>
+    */
+
+    public function add_to_fav_shortcode() {
+        global  $post,
+                $plugin_dir_path;
+        $user_id = get_current_user_id();
+
+        $active = $this->is_it_faved($post->ID, $user_id);
+
+        $status = ($active == true ? 'active' : 'inactive');
+
+        if (is_user_logged_in()) {
+          return "<div class='add-favourite' data-post='$post->ID'>
+            <div class='add-favourite--btn $status'><span>" . __('Adicionar aos favoritos:') . "
+              </span><img class='svg' src='" . $plugin_dir_path . "assets/images/heart.svg' />
+            </div>
+          </div>";
+        };
+    }
+
+    /**
+    * Display user favourite.
+    *
+    * Shortcode to display user favourites on front end.
+    *
+    * @since      1.0.0
+    * @package    Licinio Sousa
+    * @author     Licinio Sousa <licinio@ocubo.org>
+    */
+
+    public function list_favourites_shortcode() {
+
+        global $wpdb;
+        $table_name = $wpdb->prefix . 'lfs_favourites';
+        $user_id = get_current_user_id();
+
+        $favourites = $wpdb->get_results( "SELECT * FROM $table_name WHERE user_id = $user_id LIMIT 5", OBJECT );
+
+        $favourited_posts = [];
+
+        foreach ($favourites as $favourite) {
+          array_push($favourited_posts, $favourite->post_id);
+        }
+
+        $my_favourite_posts = implode(",", $favourited_posts);
+
+
+        $posts_id = $my_favourite_posts;
+
+        $favourites = $wpdb->get_results( "SELECT * FROM wp_posts WHERE id in ($posts_id)" );
+
+        $favourited_posts = [];
+
+        echo '<ul class="list_my_favourites">';
+        foreach ($favourites as $favourite) {
+          // array_push($favourited_posts, (array)$favourite);
+
+          // print_r($favourite);
+
+          echo '<li><a href="' . get_permalink($favourite->ID) . '">' . $favourite->post_title . '</a></li>';
+        }
+        echo '</ul>';
+
+        // return $favourited_posts;
+
     }
 
     /**

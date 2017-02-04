@@ -44,11 +44,21 @@ class lfs_Endpoints {
           $timezone = date_default_timezone_get();
           $date = date('Y/m/d h:i:s a', time());
 
-          $wpdb->insert('wp_lfs_favourites', array(
-              'time'  => $date,
-              'user_id' => $_POST[ 'user_id' ],
-              'post_id' => $_POST[ 'post_id' ]
-          ));
+          $query_action = $_POST[ 'query_action' ];
+
+          if ($query_action == 'insert') {
+            $wpdb->insert('wp_lfs_favourites', array(
+                'time'  => $date,
+                'user_id' => $_POST[ 'user_id' ],
+                'post_id' => $_POST[ 'post_id' ]
+            ));
+          } else if ($query_action == 'delete') {
+            $wpdb->delete('wp_lfs_favourites', array(
+                'user_id' => $_POST[ 'user_id' ],
+                'post_id' => $_POST[ 'post_id' ]
+            ));
+          }
+
     }
 }
 

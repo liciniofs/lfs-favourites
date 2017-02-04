@@ -18,23 +18,31 @@ LFS = '' || {};
                 target = '.lfs-favourites-widget-response';
             _this.on('click', function(event){
               if (_this.hasClass('active')) {
-                return false;
-              }
-              $(this).addClass('active');
-              LFS.favourites.ajaxUpdate.post(currentPost, currentUser);
-              if ($(target).length) {
-                LFS.favourites.ajaxUpdate.update(currentPost, target);
+                var query_action = 'delete';
+                $(this).removeClass('active');
+                LFS.favourites.ajaxUpdate.post(query_action, currentPost, currentUser);
+                if ($(target).length) {
+                  LFS.favourites.ajaxUpdate.removeFromSidebar(currentPost, target);
+                }
+              } else {
+                var query_action = 'insert';
+                $(this).addClass('active');
+                LFS.favourites.ajaxUpdate.post(query_action, currentPost, currentUser);
+                if ($(target).length) {
+                  LFS.favourites.ajaxUpdate.addToSidebar(currentPost, target);
+                }
               }
             });
           });
         }
       },
-      post: function(postId, userId){
+      post: function(query_action, postId, userId){
         $.ajax({
             type: "POST",
             url: ajaxurl,
             data: {
                 'action': 'ajax_form',
+                'query_action': query_action,
                 'post_id': postId,
                 'user_id': userId
             },
@@ -49,7 +57,7 @@ LFS = '' || {};
             },
         });
       },
-      update: function(postId, target){
+      addToSidebar: function(postId, target){
         $.ajax({
             type: "GET",
             url: "wp-json/wp/v2/posts/" + postId,
@@ -61,13 +69,18 @@ LFS = '' || {};
                 // alert('before')
             },
             success: function( xhr ) {
-               $(target).prepend('<h5><a href="' + xhr.link + '">' + xhr.title.rendered + '</a></h5>');
+               $(target).prepend('<h5 class="' + postId + '"><a href="' + xhr.link + '">' + xhr.title.rendered + '</a></h5>');
             },
             error: function(){
                 // alert('error')
             },
         });
-      }
+      },
+      removeFromSidebar: function(postId, target){
+          var postId = '.' + postId;
+          console.log(postId);
+           $(postId).remove();
+      },
     },
     convertSvgToInline: {
       init: function(){

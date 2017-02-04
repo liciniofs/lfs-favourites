@@ -127,7 +127,7 @@ class lfs_favourites_widget extends \WP_Widget {
     $favourited_posts = [];
 
     foreach ($favourites as $favourite) {
-      echo '<h5><a href="' . get_permalink( $favourite->ID ) . '">' . $favourite->post_title . '</h5></a>';
+      echo '<h5 class="' . $favourite->ID . '"><a href="' . get_permalink( $favourite->ID ) . '">' . $favourite->post_title . '</h5></a>';
     }
 
     return $favourited_posts;

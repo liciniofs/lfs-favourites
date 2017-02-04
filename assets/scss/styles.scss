@@ -3,8 +3,10 @@
   border-top: 1px solid #efefef;
   display: flex;
   flex-direction: row-reverse;
+  font-size: 0.8rem;
   margin-bottom: 25px;
   position: relative;
+  text-transform: uppercase;
 }
 
 .add-favourite--btn{
@@ -41,5 +43,14 @@
         transition: fill 0.5s linear;
       }
     }
+  }
+}
+
+.list_my_favourites{
+  list-style: none;
+  li{
+    background-color: #efefef;
+    border-bottom: 1px solid #fff;
+    padding:10px 15px;
   }
 }
