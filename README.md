@@ -19,8 +19,9 @@ This section describes how to install the plugin and get it working.
 
 1. Upload `lfs-favourites` to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Place `[add_favourite]` shortcode in your pages or posts
-2. Activate Widget in 'Widgets' options page
+3. Place `[add_favourite]` shortcode in your pages or posts to see the "add to favourite" button
+3. Place `[list_favourites]` shortcode in your pages or posts to see a list of favourited posts for current user
+2. Activate Widget in 'Widgets' options page to desired sidebar to see last 5 favourites posts and pages
 
 == Edit ==
 
