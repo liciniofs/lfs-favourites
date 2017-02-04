@@ -3,18 +3,7 @@
 /**
  * The dashboard-specific functionality of the plugin.
  *
- * @link       http://example.com
- * @since      1.0.0
- *
- * @package    Plugin_Name
- * @subpackage Plugin_Name/admin
- */
-
-/**
- * The dashboard-specific functionality of the plugin.
- *
- * Defines the plugin name, version, and two examples hooks for how to
- * enqueue the dashboard-specific stylesheet and JavaScript.
+ * Defines the plugin name, version, creates table and info to display in dashboard
  *
  * @package    Plugin_Name
  * @subpackage Plugin_Name/admin
@@ -79,29 +68,6 @@ class lfs_favourites_widget_Admin {
             </div>
         <?php
     }
-
-	/**
-	 * Register the stylesheets for the Dashboard.
-	 *
-	 * @since    1.0.0
-	 */
-	public function enqueue_styles() {
-
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Plugin_Name_Admin_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Plugin_Name_Admin_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'assets/css/styles.css', array(), $this->version, 'all' );
-
-	}
 
 }
 
@@ -248,15 +214,13 @@ class lfs_favourites_widget_List_Table extends WP_List_Table
      *
      * @return Array
      */
-    public function get_columns()
-    {
+    public function get_columns() {
         $columns = array(
             'id'            => 'ID',
             'title'     		   => 'Title'
         );
 
         return $columns;
-        // print_r($columns);
     }
 
     /**
@@ -267,52 +231,8 @@ class lfs_favourites_widget_List_Table extends WP_List_Table
      *
      * @return Mixed
      */
-    public function column_default( $item, $column_name )
-    {
-        // print_r($item['post_title']);
+    public function column_default( $item, $column_name ) {
         return '<a href="' . get_edit_post_link( $item['ID'], 'display' ) . '">' . $item['post_title'] . '</a>';
-        // switch( $column_name ) {
-        //     case 'id':
-        //     case 'title':
-        //     case 'time':
-        //         return $item[ $column_name ];
-        //     default:
-        //         return print_r( $item, true ) ;
-        // }
-    }
-
-    /**
-     * Allows you to sort the data by the variables set in the $_GET
-     *
-     * @return Mixed
-     */
-    private function sort_data( $a, $b )
-    {
-        // Set defaults
-        $orderby = 'id';
-        $order = 'desc';
-
-        // If orderby is set, use this as the sort column
-        if(!empty($_GET['orderby']))
-        {
-            $orderby = $_GET['orderby'];
-        }
-
-        // If order is set use this as the order
-        if(!empty($_GET['order']))
-        {
-            $order = $_GET['order'];
-        }
-
-
-        // $result = strnatcmp( $a[$orderby], $b[$orderby] );
-
-        if($order === 'asc')
-        {
-            return $result;
-        }
-
-        // return -$result;
     }
 
 }
