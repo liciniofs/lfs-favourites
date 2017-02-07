@@ -34,6 +34,7 @@ This section describes how to setup the plugin for development.
 == TO DO ==
 
 1. Adaptar os shortcode e widgets a nova realidade
+2. Remover criação de tabela
 
 == Changelog ==
 
