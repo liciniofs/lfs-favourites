@@ -65,16 +65,21 @@ class lfs_add_favourite {
     */
 
     public function is_it_faved($post_id, $user_id) {
-      global $wpdb;
-      $table_name = $wpdb->prefix . 'lfs_favourites';
 
-      $favourites = $wpdb->get_results( "SELECT * FROM $table_name WHERE user_id = $user_id AND post_id = $post_id", OBJECT );
+      global $post;
 
-      $post_count = count($favourites);
+      $current_post = $post_id; // 
 
-      if ($post_count > 0) {
+      $current_favourites = get_user_meta($user_id, "lfs_my_favourites", TRUE); // get current favourites
+
+      $favourites_array = explode(',',$current_favourites); // transform comma separated values in aray
+
+      if (in_array($current_post, $favourites_array) ) { // if posts is favourited, remove return true
+
         return true;
+
       }
+
     }
 
     /**
@@ -90,6 +95,7 @@ class lfs_add_favourite {
     public function add_to_fav_shortcode() {
         global  $post,
                 $plugin_dir_path;
+
         $user_id = get_current_user_id();
 
         $active = $this->is_it_faved($post->ID, $user_id);

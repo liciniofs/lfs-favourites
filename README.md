@@ -31,6 +31,10 @@ This section describes how to setup the plugin for development.
 2. Run npm install
 3. Run gulp
 
+== TO DO ==
+
+1. Adaptar os shortcode e widgets a nova realidade
+
 == Changelog ==
 
 = 1.0 =

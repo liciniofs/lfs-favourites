@@ -2,6 +2,7 @@ LFS = '' || {};
 
 (function($){
   LFS.favourites = {
+    favouriteStatus: false,
     init: function(){
       LFS.favourites.ajaxUpdate.init();
       LFS.favourites.convertSvgToInline.init();
@@ -18,16 +19,25 @@ LFS = '' || {};
                 target = '.lfs-favourites-widget-response';
             _this.on('click', function(event){
               if (_this.hasClass('active')) {
-                var query_action = 'delete';
-                $(this).removeClass('active');
-                LFS.favourites.ajaxUpdate.post(query_action, currentPost, currentUser);
+                favouriteStatus = false;
+
+                $(this).removeClass('active'); // remove active state from button
+
+                LFS.favourites.ajaxUpdate.post(currentPost, currentUser); //update database
+
                 if ($(target).length) {
+
                   LFS.favourites.ajaxUpdate.removeFromSidebar(currentPost, target);
+
                 }
+
               } else {
-                var query_action = 'insert';
-                $(this).addClass('active');
-                LFS.favourites.ajaxUpdate.post(query_action, currentPost, currentUser);
+                favouriteStatus = true;
+
+                $(this).addClass('active'); // set button state to active
+
+                LFS.favourites.ajaxUpdate.post(currentPost, currentUser); // Update database
+
                 if ($(target).length) {
                   LFS.favourites.ajaxUpdate.addToSidebar(currentPost, target);
                 }
@@ -36,21 +46,21 @@ LFS = '' || {};
           });
         }
       },
-      post: function(query_action, postId, userId){
+      post: function(postId, userId){
         $.ajax({
             type: "POST",
             url: ajaxurl,
             data: {
                 'action': 'ajax_form',
-                'query_action': query_action,
                 'post_id': postId,
-                'user_id': userId
+                'user_id': userId,
+                'favourited_status': favouriteStatus
             },
             beforeSend: function() {
                 // alert('before')
             },
-            success: function( response ) {
-        			// console.log(response);
+            success: function( xhr ) {
+        			console.log(xhr);
         		},
             error: function(){
                 // alert('error')
@@ -77,9 +87,10 @@ LFS = '' || {};
         });
       },
       removeFromSidebar: function(postId, target){
-          var postId = '.' + postId;
-          console.log(postId);
-           $(postId).remove();
+
+          var postId = '.' + postId; // get post id
+
+          $(postId).remove(); // remove div with id from sidebar
       },
     },
     convertSvgToInline: {

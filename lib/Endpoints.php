@@ -29,37 +29,45 @@ class lfs_Endpoints {
     }
 
     /**
-     * Inserts data.
+     * Updates user metadata.
      *
-     * Inserts data to plugin database.
+     * Insers and removes data from the user metadata.
      *
      * @since      1.0.0
      * @package    Licinio Sousa
      * @author     Licinio Sousa <licinio@ocubo.org>
      */
 
-    function ajax_form(){
-          global $wpdb;
+    public function ajax_form() {
+        global $post;
 
-          $timezone = date_default_timezone_get();
-          $date = date('Y/m/d h:i:s a', time());
+        if (is_user_logged_in()) {
+          $user_id = get_current_user_id(); // set current user ID
+          $current_post = $_POST[ 'post_id' ]; // set post to favourite
+          $current_favourites = []; // declare array
 
-          $query_action = $_POST[ 'query_action' ];
+          $current_favourites = get_user_meta($user_id,"lfs_my_favourites",TRUE); // get current favourites
 
-          if ($query_action == 'insert') {
-            $wpdb->insert('wp_lfs_favourites', array(
-                'time'  => $date,
-                'user_id' => $_POST[ 'user_id' ],
-                'post_id' => $_POST[ 'post_id' ]
-            ));
-          } else if ($query_action == 'delete') {
-            $wpdb->delete('wp_lfs_favourites', array(
-                'user_id' => $_POST[ 'user_id' ],
-                'post_id' => $_POST[ 'post_id' ]
-            ));
+          $favourites_array = explode(',',$current_favourites); // transform comma separated values in aray
+
+          if (in_array($current_post, $favourites_array) ) { // if posts is favourited, remove it from favourites
+
+            $favourites_array = array_diff($favourites_array, [$current_post]); // remove favourite from array
+
+            $current_favourites = implode(", ", $favourites_array); // transform array back to csv
+
+            update_user_meta($user_id, "lfs_my_favourites", $current_favourites);// update with new data
+
+          } else {
+
+            $current_favourites .= ",".intval($_POST[ 'post_id' ]); // add current post ID to existing data
+
+            update_user_meta($user_id,"lfs_my_favourites",$current_favourites); // update with new data
           }
 
-    }
+        }
+
+  	}
 }
 
 $lfs_Endpoints = new lfs_Endpoints();

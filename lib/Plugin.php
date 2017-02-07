@@ -74,6 +74,7 @@ class Plugin {
 		require_once dirname( __FILE__ ) . '/Widget.php';
 		require_once dirname( __FILE__ ) . '/Shortcode.php';
 		require_once dirname( __FILE__ ) . '/Endpoints.php';
+		// require_once dirname( __FILE__ ) . '/User.php';
 		require_once dirname( __FILE__ ) . '/Admin.php';
 
 	}
